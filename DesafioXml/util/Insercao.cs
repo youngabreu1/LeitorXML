@@ -9,47 +9,22 @@ namespace DesafioXml.util
 {
     internal class Insercao
     {
-        public string Pathfile { get; set; }
-        private XmlDocument document;
-
-
-        public Insercao(string path)
-        {
-            document = new XmlDocument();
-            Pathfile = path;
+       
+        public Insercao() {
         }
         public void print_ins()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             XmlDocument document = new XmlDocument();
-            document.Load(Pathfile);
-            Console.WriteLine("Inserção");
-
-            XmlNodeList breakNodes = document.SelectNodes("Playlist/Break1100C");
-
-            Console.WriteLine("Break:");
-
-
-            foreach (XmlNode breakNode in breakNodes)
-            {
-                //TODO: alterar lógica pra identificar quantos nós de Inserção o Break possui, e percorrer esse número.
-                for (int i = 0; i <= 4; i++)
-                {
-                    string nodeName = "Ins" + i;
-                    XmlNodeList insNodes = breakNode.SelectNodes(nodeName);
+            document.Load(@"C:\DesafioXml\DesafioXml\xml\26-07-2023.xml");
+            XmlNodeList insNodes = document.SelectNodes("//*[starts-with(local-name(), 'Ins')]");
 
                     foreach (XmlNode insNode in insNodes)
                     {
                         var tt = insNode.ChildNodes;
-                        XmlElement element = (XmlElement)insNode;
-
-                        Console.WriteLine(element);
-                        // Acessar a propriedade OuterXml do nó individual
+                       
                         Console.WriteLine("\t" + insNode.OuterXml);
-                    }
-
-                }
-            }
+                    } 
         }
     }
 }
