@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace DesafioXml.util
 {
-    internal class Insercao
+    public class Insercao
     {
        
         public Insercao() {
@@ -18,7 +18,7 @@ namespace DesafioXml.util
             XmlDocument document = new XmlDocument();
             document.Load(@"C:\DesafioXml\DesafioXml\xml\26-07-2023.xml");
             XmlNodeList insNodes = document.SelectNodes("//*[starts-with(local-name(), 'Ins')]");
-
+             
                     foreach (XmlNode insNode in insNodes)
                     {
                         var tt = insNode.ChildNodes;
