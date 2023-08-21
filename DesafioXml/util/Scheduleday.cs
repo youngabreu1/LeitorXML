@@ -1,34 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
 namespace DesafioXml.util
 {
-    internal class Scheduleday
+    
+    public class ScheduleDay
     {
-  
-        public Scheduleday()
+        public string Pathfile { get; set; }
+        private XmlDocument document;
+        
+        public ScheduleDay(string path)
         {
-         
+            
+            Pathfile = path;
+            readXML();
+            
         }
-        public void print_schday()
+        public void readXML()
         {
+            document = new XmlDocument();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            XmlDocument document = new XmlDocument();
-            document.Load(@"C:\DesafioXml\DesafioXml\xml\26-07-2023.xml");
-            XmlNodeList scheduleNodes = document.SelectNodes("Playlist");
+            document.Load(Pathfile);
+        }
+        public XmlNodeList printBreak()
+        {
+            
+            XmlNodeList breakNodes = document.SelectNodes("//*[starts-with(local-name(), 'Break')]");
             Console.WriteLine("Break:");
 
-
-            foreach (XmlNode scheduleNode in scheduleNodes)
+            foreach (XmlNode breakNode in breakNodes)
             {
-                var tt = scheduleNode.ChildNodes;
-                Console.WriteLine("\t" + scheduleNode.OuterXml);
+                //var tt = breakNode.ChildNodes;
+                Console.WriteLine("\t" + breakNode.OuterXml);
 
             }
+            return breakNodes;
+ 
+            
         }
+        public void breakTeste()
+        {
+            Break breaks = new Break(printBreak());
+        }
+
+
     }
 }
+
+//public override string ToString()
+//{
+//    return "penis";
+//}
