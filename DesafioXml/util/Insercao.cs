@@ -4,27 +4,101 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace DesafioXml.util
 {
     public class Insercao
     {
-       
-        public Insercao() {
-        }
-        public void print_ins()
+        public string Id { get; set; }
+        public string CTA { get; set; }
+        public string Source { get; set; }
+        public string MovedTo { get; set; }
+        public string Type { get; set; }
+        public string Title { get; set; }
+        public string File { get; set; }
+        public string Folder { get; set; }
+        public string Text { get; set; }
+        public string Checked { get; set; }
+        public string Err { get; set; }
+        public string sErr { get; set; }
+        public string HoraAudio { get; set; }
+        public string HoraPK { get; set; }
+        public string IsAudioFile { get; set; }
+        public string DurOrig { get; set; }
+        public string Dur { get; set; }
+        public string Refr { get; set; }
+        public string DurRefr { get; set; }
+        public string PtVh { get; set; }
+        public string PtMx { get; set; }
+        public string MxIni { get; set; }
+        public string Intro { get; set; }
+        public string PtLoc { get; set; }
+        public string Vol { get; set; }
+        public string Bitrate { get; set; }
+        public string Reg { get; set; }
+        public string MD5 { get; set; }
+        public Insercao(XmlNode insElement)
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            XmlDocument document = new XmlDocument();
-            document.Load(@"C:\DesafioXml\DesafioXml\xml\26-07-2023.xml");
-            XmlNodeList insNodes = document.SelectNodes("//*[starts-with(local-name(), 'Ins')]");
-             
-                    foreach (XmlNode insNode in insNodes)
-                    {
-                        var tt = insNode.ChildNodes;
-                       
-                        Console.WriteLine("\t" + insNode.OuterXml);
-                    } 
+            Id = insElement.Attributes["Id"]?.Value;
+            CTA = insElement.Attributes["CTA"]?.Value;
+            Source = insElement.Attributes["Source"]?.Value;
+            MovedTo = insElement.Attributes["MovedTo"]?.Value;
+            Type = insElement.Attributes["Type"]?.Value;
+            Title = insElement.Attributes["Title"]?.Value;
+            File = insElement.Attributes["File"]?.Value;
+            Folder = insElement.Attributes["Folder"]?.Value;
+            Text = insElement.Attributes["Text"]?.Value;
+            Checked = insElement.Attributes["Checked"]?.Value;
+            Err = insElement.Attributes["Err"]?.Value;
+            sErr = insElement.Attributes["sErr"]?.Value;
+            HoraAudio = insElement.Attributes["HoraAudio"]?.Value;
+            HoraPK = insElement.Attributes["HoraPK"]?.Value;
+            IsAudioFile = insElement.Attributes["IsAudioFile"]?.Value;
+            DurOrig = insElement.Attributes["DurOrig"]?.Value;
+            Dur = insElement.Attributes["Dur"]?.Value;
+            Refr = insElement.Attributes["Refr"]?.Value;
+            DurRefr = insElement.Attributes["DurRefr"]?.Value;
+            PtVh = insElement.Attributes["PtVh"]?.Value;
+            PtMx = insElement.Attributes["PtMx"]?.Value;
+            MxIni = insElement.Attributes["MxIni"]?.Value;
+            Intro = insElement.Attributes["Intro"]?.Value;
+            PtLoc = insElement.Attributes["PtLoc"]?.Value;
+            Vol = insElement.Attributes["Vol"]?.Value;
+            Bitrate = insElement.Attributes["Bitrate"]?.Value;
+            Reg = insElement.Attributes["Reg"]?.Value;
+            MD5 = insElement.Attributes["MD5"]?.Value;
+        }
+        public override string ToString()
+        {
+            return $"Id: {Id}\n" +
+               $"CTA: {CTA}\n" +
+               $"Source: {Source}\n" +
+               $"MovedTo: {MovedTo}\n" +
+               $"Type: {Type}\n" +
+               $"Title: {Title}\n" +
+               $"File: {File}\n" +
+               $"Folder: {Folder}\n" +
+               $"Text: {Text}\n" +
+               $"Checked: {Checked}\n" +
+               $"Err: {Err}\n" +
+               $"sErr: {sErr}\n" +
+               $"HoraAudio: {HoraAudio}\n" +
+               $"HoraPK: {HoraPK}\n" +
+               $"IsAudioFile: {IsAudioFile}\n" +
+               $"DurOrig: {DurOrig}\n" +
+               $"Dur: {Dur}\n" +
+               $"Refr: {Refr}\n" +
+               $"DurRefr: {DurRefr}\n" +
+               $"PtVh: {PtVh}\n" +
+               $"PtMx: {PtMx}\n" +
+               $"MxIni: {MxIni}\n" +
+               $"Intro: {Intro}\n" +
+               $"PtLoc: {PtLoc}\n" +
+               $"Vol: {Vol}\n" +
+               $"Bitrate: {Bitrate}\n" +
+               $"Reg: {Reg}\n" +
+               $"MD5: {MD5}\n";
         }
     }
 }
