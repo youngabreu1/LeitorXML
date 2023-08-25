@@ -15,57 +15,32 @@ namespace DesafioXml.util
     public class ScheduleDay
     {
         public string Pathfile { get; set; }
+        public List<Break> Breaks { get; set; }
         public XmlDocument document;
 
         public ScheduleDay(string path)
         {
+            Breaks = new List<Break>();
+            ReadXML(path);
 
-            Pathfile = path;
-            ReadXML();
         }
 
-        public void ReadXML()
+        void ReadXML(string path)
         {
-
             XmlDocument document = new XmlDocument();
-            document.Load(Pathfile);
-
-            //void printInsercoes()
-            //{
-
-            //    XmlNodeList insercaoElements = document.SelectNodes("//*[starts-with(local-name(), 'Ins')]");
-            //    foreach (XmlNode insercaoElement in insercaoElements)
-            //    {
-            //        Insercao insInstance = new Insercao(insercaoElement);
-            //        Console.WriteLine(insInstance);
-            //    }
-
-            //}
-
+            document.Load(path);
+            //XmlNodeList insercaoElements = document.SelectNodes("//*[starts-with(local-name(), 'Ins')]");
+            
             XmlNodeList breakElements = document.SelectNodes("//*[starts-with(local-name(), 'Break')]");
             foreach (XmlNode breakElement in breakElements)
             {
-
                 Break breakInstance = new Break(breakElement);
+                Breaks.Add(breakInstance);
                 Console.WriteLine(breakInstance);
-
+                XmlNode copyBreakElement = breakElement.CloneNode(true); // Cria uma cópia do nó
+                breakInstance.ListaInsercao(copyBreakElement);
             }
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //public XmlNodeList printBreak()
         //{
