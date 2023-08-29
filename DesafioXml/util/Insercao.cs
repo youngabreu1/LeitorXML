@@ -40,6 +40,7 @@ namespace DesafioXml.util
         public string MD5 { get; set; }
         public Insercao(XmlNode insElement)
         {
+            
             Id = insElement.Attributes["Id"]?.Value;
             CTA = insElement.Attributes["CTA"]?.Value;
             Source = insElement.Attributes["Source"]?.Value;
@@ -68,37 +69,38 @@ namespace DesafioXml.util
             Bitrate = insElement.Attributes["Bitrate"]?.Value;
             Reg = insElement.Attributes["Reg"]?.Value;
             MD5 = insElement.Attributes["MD5"]?.Value;
+
         }
         public override string ToString()
         {
-            return $"Id: {Id}\n" +
-               $"CTA: {CTA}\n" +
-               $"Source: {Source}\n" +
-               $"MovedTo: {MovedTo}\n" +
-               $"Type: {Type}\n" +
-               $"Title: {Title}\n" +
-               $"File: {File}\n" +
-               $"Folder: {Folder}\n" +
-               $"Text: {Text}\n" +
-               $"Checked: {Checked}\n" +
-               $"Err: {Err}\n" +
-               $"sErr: {sErr}\n" +
-               $"HoraAudio: {HoraAudio}\n" +
-               $"HoraPK: {HoraPK}\n" +
-               $"IsAudioFile: {IsAudioFile}\n" +
-               $"DurOrig: {DurOrig}\n" +
-               $"Dur: {Dur}\n" +
-               $"Refr: {Refr}\n" +
-               $"DurRefr: {DurRefr}\n" +
-               $"PtVh: {PtVh}\n" +
-               $"PtMx: {PtMx}\n" +
-               $"MxIni: {MxIni}\n" +
-               $"Intro: {Intro}\n" +
-               $"PtLoc: {PtLoc}\n" +
-               $"Vol: {Vol}\n" +
-               $"Bitrate: {Bitrate}\n" +
-               $"Reg: {Reg}\n" +
-               $"MD5: {MD5}\n";
+            return $"Id: {Id}, " +
+               $"CTA: {CTA}, " +
+               $"Source: {Source}, " +
+               $"MovedTo: {MovedTo}, " +
+               $"Type: {Type}, " +
+               $"Title: {Title}, " +
+               $"File: {File}, " +
+               $"Folder: {Folder}, " +
+               $"Text: {Text}, " +
+               $"Checked: {Checked}, " +
+               $"Err: {Err}, " +
+               $"sErr: {sErr}, " +
+               $"HoraAudio: {HoraAudio}, " +
+               $"HoraPK: {HoraPK}, " +
+               $"IsAudioFile: {IsAudioFile}, " +
+               $"DurOrig: {DurOrig}, " +
+               $"Dur: {Dur}, " +
+               $"Refr: {Refr}, " +
+               $"DurRefr: {DurRefr}, " +
+               $"PtVh: {PtVh}, " +
+               $"PtMx: {PtMx}, " +
+               $"MxIni: {MxIni}, " +
+               $"Intro: {Intro}, " +
+               $"PtLoc: {PtLoc}, " +
+               $"Vol: {Vol}, " +
+               $"Bitrate: {Bitrate}, " +
+               $"Reg: {Reg}, " +
+               $"MD5: {MD5}, ";
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using DesafioXml.util;
+using System.Collections.Generic;
 
 namespace DesafioXml.util
 {
@@ -26,9 +27,12 @@ namespace DesafioXml.util
         public string Dur { get; set; }
         public string Slots { get; set; }
         public string Orig { get; set; }
+        public List<Insercao> Insercoes { get; set; }
 
         public Break(XmlNode breakElement)
         {
+            Insercoes = new List<Insercao>();
+
             Ins = breakElement.Attributes["Ins"]?.Value;
             Locked = breakElement.Attributes["Locked"]?.Value;
             Changed = breakElement.Attributes["Changed"]?.Value;
@@ -44,25 +48,38 @@ namespace DesafioXml.util
             Dur = breakElement.Attributes["Dur"]?.Value;
             Slots = breakElement.Attributes["Slots"]?.Value;
             Orig = breakElement.Attributes["Orig"]?.Value;
+
+        }
+        public void ListaInsercao(XmlNode breakNode)
+        {
+            XmlNodeList insercaoElements = breakNode.SelectNodes("//*[starts-with(local-name(), 'Ins')]");
+            foreach (XmlNode insercaoElement in insercaoElements)
+            {
+                Insercao insercaoInstance = new Insercao(insercaoElement);
+                Insercoes.Add(insercaoInstance);
+                Console.WriteLine(insercaoInstance);
+            }
         }
 
         public override string ToString()
         {
-            return $"Ins: {Ins}\n" +
-                   $"Locked: {Locked}\n" +
-                   $"Changed: {Changed}\n" +
-                   $"Filetime: {Filetime}\n" +
-                   $"Filetime2: {Filetime2}\n" +
-                   $"Time: {Time}\n" +
-                   $"Type: {Type}\n" +
-                   $"Id: {Id}\n" +
-                   $"Id_Edited: {Id_Edited}\n" +
-                   $"Fixo: {Fixo}\n" +
-                   $"Descarte: {Descarte}\n" +
-                   $"Net: {Net}\n" +
-                   $"Dur: {Dur}\n" +
-                   $"Slots: {Slots}\n" +
-                   $"Orig: {Orig}\n";
+
+            return $"Ins: {Ins}, " +
+            $"Locked: {Locked}, " +
+            $"Changed: {Changed}, " +
+            $"Filetime: {Filetime}, " +
+            $"Filetime2: {Filetime2}, " +
+            $"Time: {Time}, " +
+            $"Type: {Type}, " +
+            $"Id: {Id}, " +
+            $"Id_Edited: {Id_Edited}, " +
+            $"Fixo: {Fixo}, " +
+            $"Descarte: {Descarte}, " +
+            $"Net: {Net}, " +
+            $"Dur: {Dur}, " +
+            $"Slots: {Slots}, " +
+            $"Orig: {Orig}, ";
+
         }
     }
 }

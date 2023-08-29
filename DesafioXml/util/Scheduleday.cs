@@ -15,79 +15,33 @@ namespace DesafioXml.util
     public class ScheduleDay
     {
         public string Pathfile { get; set; }
+
+        public List<Break> Breaks { get; set; }
         public XmlDocument document;
 
         public ScheduleDay(string path)
         {
 
-            Pathfile = path;
-            ReadXML();
+            Breaks = new List<Break>();
+            ReadXML(path);
+
         }
 
-        public void ReadXML()
+        void ReadXML(string path)
         {
-
             XmlDocument document = new XmlDocument();
-            document.Load(Pathfile);
-
-            //void printInsercoes()
-            //{
-
-            //    XmlNodeList insercaoElements = document.SelectNodes("//*[starts-with(local-name(), 'Ins')]");
-            //    foreach (XmlNode insercaoElement in insercaoElements)
-            //    {
-            //        Insercao insInstance = new Insercao(insercaoElement);
-            //        Console.WriteLine(insInstance);
-            //    }
-
-            //}
+            document.Load(path);
 
             XmlNodeList breakElements = document.SelectNodes("//*[starts-with(local-name(), 'Break')]");
             foreach (XmlNode breakElement in breakElements)
             {
-
                 Break breakInstance = new Break(breakElement);
+                Breaks.Add(breakInstance);
                 Console.WriteLine(breakInstance);
-
+                XmlNode copyBreakElement = breakElement.CloneNode(true);
+                breakInstance.ListaInsercao(copyBreakElement);
             }
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public XmlNodeList printBreak()
-        //{
-
-        //    XmlNodeList breakNodes = document.SelectNodes("//*[starts-with(local-name(), 'Break')]");
-        //    Console.WriteLine("Break:");
-
-        //    foreach (XmlNode breakNode in breakNodes)
-        //    {
-        //        //var tt = breakNode.ChildNodes;
-        //        Console.WriteLine("\t" + breakNode.OuterXml);
-
-        //    }
-        //    return breakNodes;
-
-
-        //}
-        //public void breakTeste()
-        //{
-        //    Break breaks = new Break(printBreak());
-        //}
-
 
     }
 }
