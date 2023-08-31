@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Reflection.Metadata;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
+using System.IO.Compression;
+
 
 
 namespace DesafioXml.util
@@ -22,13 +20,44 @@ namespace DesafioXml.util
         public ScheduleDay(string path)
         {
 
+            Pathfile = path;
+            path = path + @"\Montagem";
             Breaks = new List<Break>();
-            ReadXML(path);
+            GetFiles(path);
 
         }
+        void GetFiles(string path)
+        {
+            string[] arquivos = Directory.GetFiles(path);
+            Console.WriteLine("Arquivos:");
+            int i = 0;
 
+            foreach (string arq in arquivos)
+            {
+                Console.WriteLine($"({i})"+arq);
+                i++;
+
+            }
+
+            Console.WriteLine("Escolha o número referente a data do montagem que você deseja visualizar:");
+            i = int.Parse(Console.ReadLine());
+            ZipFile.ExtractToDirectory(arquivos[i], path);
+
+            arquivos = Directory.GetFiles(path,"*.xml");
+            ReadXML(arquivos[0]);
+
+            //Deletar os arquivos XML que foram descompactados durante a execução do programa para não prejudicar execuções futuras.
+            string deleteUnzip = ".xml";
+            string[] filesToDelete = Directory.GetFiles(path, $"*{deleteUnzip}");
+            foreach (string fileToDelete in filesToDelete)
+            {
+                File.Delete(fileToDelete);
+                Console.WriteLine($"Deleted: {fileToDelete}");
+            }
+        }
         void ReadXML(string path)
         {
+
             XmlDocument document = new XmlDocument();
             document.Load(path);
 

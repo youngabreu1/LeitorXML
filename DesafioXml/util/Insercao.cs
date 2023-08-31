@@ -40,7 +40,7 @@ namespace DesafioXml.util
         public string MD5 { get; set; }
         public Insercao(XmlNode insElement)
         {
-            
+
             Id = insElement.Attributes["Id"]?.Value;
             CTA = insElement.Attributes["CTA"]?.Value;
             Source = insElement.Attributes["Source"]?.Value;
