@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace DesafioXml.util
 {
-    public class Insercao
+    public class Insertion
     {
         public string Id { get; set; }
         public string CTA { get; set; }
@@ -38,7 +38,7 @@ namespace DesafioXml.util
         public string Bitrate { get; set; }
         public string Reg { get; set; }
         public string MD5 { get; set; }
-        public Insercao(XmlNode insElement)
+        public Insertion(XmlNode insElement)
         {
 
             Id = insElement.Attributes["Id"]?.Value;
@@ -74,9 +74,7 @@ namespace DesafioXml.util
         public override string ToString()
         {
             return $"Id: {Id}, " +
-               $"CTA: {CTA}, " +
                $"Source: {Source}, " +
-               $"MovedTo: {MovedTo}, " +
                $"Type: {Type}, " +
                $"Title: {Title}, " +
                $"File: {File}, " +
@@ -100,7 +98,7 @@ namespace DesafioXml.util
                $"Vol: {Vol}, " +
                $"Bitrate: {Bitrate}, " +
                $"Reg: {Reg}, " +
-               $"MD5: {MD5}, ";
+               $"MD5: {MD5}, \n\n";
         }
     }
 }
