@@ -12,6 +12,7 @@ namespace DesafioXml.util
 {
     public class Break
     {
+        public string Name { get; set; }    
         public string Ins { get; set; }
         public string Locked { get; set; }
         public string Changed { get; set; }
@@ -27,12 +28,12 @@ namespace DesafioXml.util
         public string Dur { get; set; }
         public string Slots { get; set; }
         public string Orig { get; set; }
-        public List<Insercao> Insercoes { get; set; }
+        public List<Insertion> Insercoes { get; set; }
 
         public Break(XmlNode breakElement)
         {
-            Insercoes = new List<Insercao>();
-
+            Insercoes = new List<Insertion>();
+            Name = breakElement.Name;
             Ins = breakElement.Attributes["Ins"]?.Value;
             Locked = breakElement.Attributes["Locked"]?.Value;
             Changed = breakElement.Attributes["Changed"]?.Value;
@@ -50,21 +51,20 @@ namespace DesafioXml.util
             Orig = breakElement.Attributes["Orig"]?.Value;
 
         }
-        public void ListaInsercao(XmlNode breakNode)
+        public void ListInsertions(XmlNode breakNode)
         {
-            XmlNodeList insercaoElements = breakNode.SelectNodes("//*[starts-with(local-name(), 'Ins')]");
-            foreach (XmlNode insercaoElement in insercaoElements)
+            foreach (XmlNode insertionElement in breakNode.ChildNodes)
             {
-                Insercao insercaoInstance = new Insercao(insercaoElement);
-                Insercoes.Add(insercaoInstance);
-                Console.WriteLine(insercaoInstance);
+                Insertion insertionInstance = new Insertion(insertionElement);
+                Insercoes.Add(insertionInstance);
+                Console.WriteLine(insertionInstance);
             }
         }
 
         public override string ToString()
         {
-
-            return $"Ins: {Ins}, " +
+            return $": {Name}, " +
+            $"Ins: {Ins}, " +
             $"Locked: {Locked}, " +
             $"Changed: {Changed}, " +
             $"Filetime: {Filetime}, " +
@@ -78,8 +78,12 @@ namespace DesafioXml.util
             $"Net: {Net}, " +
             $"Dur: {Dur}, " +
             $"Slots: {Slots}, " +
-            $"Orig: {Orig}, ";
+            $"Orig: {Orig}\n\n";
 
+        }
+        public void PrintBreak(Break breaks)
+        {
+            Console.WriteLine(breaks);
         }
     }
 }
