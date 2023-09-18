@@ -1,59 +1,60 @@
 ﻿using System.Xml;
 using System.IO.Compression;
-
+using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DesafioXml.util
 {
 
     public class ScheduleDay
     {
-        public string Pathfile { get; set; }
         public string Date { get; set; }
         public List<Break> Breaks { get; set; }
         public XmlDocument document;
 
         public ScheduleDay(string path)
         {
-            Pathfile = path;
-            path = path + @"\Montagem";
+           
             Breaks = new List<Break>();
-            DeleteXMLFile(path);
-            GetFiles(path);
             DeleteXMLFile(path);
         }
 
-        void GetFiles(string path)
+        void GetFiles(string path, string data)
         {
             string[] files = Directory.GetFiles(path);
             path += @"\";
+            string directoryToUnzip = path;
+            //path += date.ToString("dd-MM-yyyy") + ".zip";
+
+            foreach (string file in files)
+            {
+                if (path == file)
+                {
+                    ZipFile.ExtractToDirectory(file, directoryToUnzip);
+                    files = Directory.GetFiles(directoryToUnzip, "*.xml");
+                    ReadXML(files[0]);
+                }
+            }
+        }
+        //Validar data
+        void InputDate(string data)
+        {
             bool condition = false;
+            string inputDate = data;
             while (!condition)
             {
-                Console.WriteLine("Escolha a data do montagem que você deseja visualizar:\nExemplo: dd-mm-yyyy ");
-                string inputDate = Console.ReadLine();
-
                 if (!DateTime.TryParseExact(inputDate, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime date))
                 {
                     Console.Clear();
                     Console.WriteLine("Formato de data inválido.");
                     continue;
                 }
-                string directoryToUnzip = path;
-                path += date.ToString("dd-MM-yyyy") + ".zip";
-                condition = !condition;
 
-                foreach (string file in files)
-                {
-                    if (path == file)
-                    {
-                        ZipFile.ExtractToDirectory(file, directoryToUnzip);
-                        files = Directory.GetFiles(directoryToUnzip, "*.xml");
-                        ReadXML(files[0]);
-                    }
-                }
             }
 
         }
+   
+
         //Deletar os arquivos XML que foram descompactados durante a execução do programa para não prejudicar execuções futuras.
         void DeleteXMLFile(string path)
         {

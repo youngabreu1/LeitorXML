@@ -39,7 +39,6 @@ namespace DesafioXml.util
             Changed = breakElement.Attributes["Changed"]?.Value;
             Filetime = breakElement.Attributes["Filetime"]?.Value;
             Filetime2 = breakElement.Attributes["Filetime2"]?.Value;
-            Time = breakElement.Attributes["Time"]?.Value;
             Type = breakElement.Attributes["Type"]?.Value;
             Id = breakElement.Attributes["Id"]?.Value;
             Id_Edited = breakElement.Attributes["Id_Edited"]?.Value;
