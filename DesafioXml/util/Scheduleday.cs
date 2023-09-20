@@ -14,18 +14,14 @@ namespace DesafioXml.util
 
         public ScheduleDay(string path)
         {
-           
             Breaks = new List<Break>();
             DeleteXMLFile(path);
         }
 
-        void GetFiles(string path, string data)
+        void UnzipFiles(string path)
         {
             string[] files = Directory.GetFiles(path);
-            path += @"\";
             string directoryToUnzip = path;
-            //path += date.ToString("dd-MM-yyyy") + ".zip";
-
             foreach (string file in files)
             {
                 if (path == file)
@@ -43,12 +39,7 @@ namespace DesafioXml.util
             string inputDate = data;
             while (!condition)
             {
-                if (!DateTime.TryParseExact(inputDate, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime date))
-                {
-                    Console.Clear();
-                    Console.WriteLine("Formato de data inválido.");
-                    continue;
-                }
+               
 
             }
 
