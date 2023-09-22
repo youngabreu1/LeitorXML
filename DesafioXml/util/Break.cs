@@ -81,9 +81,6 @@ namespace DesafioXml.util
             $"Orig: {Orig}\n\n";
 
         }
-        public void PrintBreak(Break breaks)
-        {
-            Console.WriteLine(breaks);
-        }
+        
     }
 }

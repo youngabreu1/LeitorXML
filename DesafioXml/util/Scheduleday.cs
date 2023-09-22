@@ -1,68 +1,39 @@
 ﻿using System.Xml;
 using System.IO.Compression;
-
+using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DesafioXml.util
 {
 
     public class ScheduleDay
     {
-        public string Pathfile { get; set; }
         public string Date { get; set; }
         public List<Break> Breaks { get; set; }
         public XmlDocument document;
-
-        public ScheduleDay(string path)
+        public List<Insertion> Insercoes;
+        public ScheduleDay(string path, string inputDate, string inputTime)
         {
-            Pathfile = path;
-            path = path + @"\Montagem";
             Breaks = new List<Break>();
             DeleteXMLFile(path);
-            GetFiles(path);
+            UnzipFiles(path, inputDate, inputTime);
             DeleteXMLFile(path);
         }
 
-        void GetFiles(string path)
+        void UnzipFiles(string path, string inputDate, string inputTime)
         {
             string[] files = Directory.GetFiles(path);
-            path += @"\";
-            bool condition = false;
-            while (!condition)
+            foreach (string file in files)
             {
-                Console.WriteLine("Escolha a data do montagem que você deseja visualizar:\nExemplo: dd-mm-yyyy ");
-                string inputDate = Console.ReadLine();
-
-                if (!DateTime.TryParseExact(inputDate, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime date))
+                if (inputDate == file)
                 {
-                    Console.Clear();
-                    Console.WriteLine("Formato de data inválido.");
-                    continue;
+                    string[] spltedPath = file.Split('\\', '.');
+                    string splitedFile = spltedPath[4];
+                    ZipFile.ExtractToDirectory(file, path);
+                    ReadXML(path + @"\" + splitedFile + ".xml");
+                    SearchListElement(Breaks, inputTime);
+                    break;
                 }
-                string directoryToUnzip = path;
-                path += date.ToString("dd-MM-yyyy") + ".zip";
-                condition = !condition;
-
-                foreach (string file in files)
-                {
-                    if (path == file)
-                    {
-                        ZipFile.ExtractToDirectory(file, directoryToUnzip);
-                        files = Directory.GetFiles(directoryToUnzip, "*.xml");
-                        ReadXML(files[0]);
-                    }
-                }
-            }
-
-        }
-        //Deletar os arquivos XML que foram descompactados durante a execução do programa para não prejudicar execuções futuras.
-        void DeleteXMLFile(string path)
-        {
-            string deleteUnzip = ".xml";
-            string[] filesToDelete = Directory.GetFiles(path, $"*{deleteUnzip}");
-            foreach (string fileToDelete in filesToDelete)
-            {
-                File.Delete(fileToDelete);
-                Console.WriteLine($"Deleted: {fileToDelete}");
             }
         }
 
@@ -76,10 +47,46 @@ namespace DesafioXml.util
             {
                 Break breakInstance = new Break(breakElement);
                 Breaks.Add(breakInstance);
-                breakInstance.PrintBreak(breakInstance);
-                breakInstance.ListInsertions(breakElement);
+                foreach (XmlNode insertionElement in breakElement.ChildNodes)
+                {
+                    Insertion insertionInstance = new Insertion(insertionElement);
+                    Insercoes.Add(insertionInstance);
+                    //Console.WriteLine(insertionInstance);
+                }
+                //breakInstance.PrintBreak(breakInstance);
+                //breakInstance.ListInsertions(breakElement);
+            }
+
+        }
+
+        //Deletar os arquivos XML que foram descompactados durante a execução do programa para não prejudicar execuções futuras.
+        void DeleteXMLFile(string path)
+        {
+            string deleteUnzip = ".xml";
+            string[] filesToDelete = Directory.GetFiles(path, $"*{deleteUnzip}");
+            foreach (string fileToDelete in filesToDelete)
+            {
+                File.Delete(fileToDelete);
+                Console.WriteLine($"Deleted: {fileToDelete}");
             }
         }
 
+
+        void SearchListElement(List<Break> breaks, string inputTime)
+        {
+            int j = 0;
+            for (int i = 0; i < breaks.Count; i++)
+            {
+                var actualBreak = breaks[i];
+
+                if (actualBreak.Orig.Trim() == inputTime)
+                {
+                    foreach (var item in actualBreak.Insercoes)
+                    {
+                        Console.WriteLine("teste: " + item.Title);
+                    }
+                }
+            }
+        }
     }
 }
