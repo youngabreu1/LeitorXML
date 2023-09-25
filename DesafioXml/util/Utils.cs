@@ -13,8 +13,8 @@ namespace DesafioXml.util
         }
         public static string PathVerification()
         {
-            string path;  
-            while (true) 
+            string path;
+            while (true)
             {
                 Console.WriteLine("Insira o caminho da pasta pgm do Playlist: \n");
                 path = Console.ReadLine();
@@ -25,7 +25,7 @@ namespace DesafioXml.util
                     Console.WriteLine("Insira um caminho válido!");
                     continue;
                 }
-                break;                
+                break;
             }
             return path;
         }
@@ -41,18 +41,42 @@ namespace DesafioXml.util
                     Console.Clear();
                     Console.WriteLine("Formato de data inválido.");
                     continue;
-                } 
+                }
                 break;
             }
             return inputDate;
         }
 
+        public static string OptionVerification()
+        {
+            string inputOption;
+            do
+            {
+                Console.WriteLine("\nEscolha uma opção:\n1 - Imprimir a programação completa\n2 - Imprimir um bloco específico\n3 - Sair");
+                inputOption = Console.ReadLine();
+                if (inputOption != "1" & inputOption != "2" & inputOption != "3")
+                {
+                    Console.Clear();   
+                    Console.WriteLine("Insira uma opção válida");
+                    continue;
+                }
+                else if (inputOption == "1" || inputOption == "2")
+                {
+                    Console.Clear();   
+                    return inputOption;
+                }
+                else
+                {
+                    System.Environment.Exit(1);
+                }
+            } while (true);
+        }
         public static string TimeVerification()
         {
             string inputTime;
             while (true)
             {
-                Console.WriteLine("Escolha a hora e quantos blocos acima você deseja visualizar:\nExemplo: 20:30");
+                Console.WriteLine("Escolha a hora do bloco que você visualizar:\nExemplo: 20:30");
                 inputTime = Console.ReadLine();
                 if (!DateTime.TryParseExact(inputTime, "HH:mm", null, System.Globalization.DateTimeStyles.None, out DateTime time))
                 {
@@ -60,7 +84,7 @@ namespace DesafioXml.util
                     Console.WriteLine("Formato inválido.");
                     continue;
                 }
-                
+
                 break;
             }
             return inputTime;

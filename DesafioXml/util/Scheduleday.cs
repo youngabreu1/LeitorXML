@@ -11,7 +11,7 @@ namespace DesafioXml.util
         public string Date { get; set; }
         public List<Break> Breaks { get; set; }
         public XmlDocument document;
-        public List<Insertion> Insercoes;
+        public List<Insertion> Insercoes { get; set; } = new List<Insertion>();
         public ScheduleDay(string path, string inputDate, string inputTime)
         {
             Breaks = new List<Break>();
@@ -20,8 +20,19 @@ namespace DesafioXml.util
             DeleteXMLFile(path);
         }
 
+        public ScheduleDay(string path, string inputDate)
+        {
+            Breaks = new List<Break>();
+            DeleteXMLFile(path);
+            UnzipFiles(path, inputDate);
+            DeleteXMLFile(path);
+        }
+
+
+
         void UnzipFiles(string path, string inputDate, string inputTime)
         {
+            bool condition = false;
             string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
@@ -30,14 +41,31 @@ namespace DesafioXml.util
                     string[] spltedPath = file.Split('\\', '.');
                     string splitedFile = spltedPath[4];
                     ZipFile.ExtractToDirectory(file, path);
-                    ReadXML(path + @"\" + splitedFile + ".xml");
+                    ReadXML(path + @"\" + splitedFile + ".xml", condition);
                     SearchListElement(Breaks, inputTime);
                     break;
                 }
             }
         }
+        void UnzipFiles(string path, string inputDate)
+        {
+            bool condition = true;
+            string[] files = Directory.GetFiles(path);
+            foreach (string file in files)
+            {
+                if (inputDate == file)
+                {
+                    string[] spltedPath = file.Split('\\', '.');
+                    string splitedFile = spltedPath[4];
+                    ZipFile.ExtractToDirectory(file, path);
+                    ReadXML(path + @"\" + splitedFile + ".xml", condition);
+                    break;
+                }
+            }
+        }
 
-        void ReadXML(string path)
+
+        void ReadXML(string path, bool condition)
         {
             XmlDocument document = new XmlDocument();
             document.Load(path);
@@ -47,14 +75,10 @@ namespace DesafioXml.util
             {
                 Break breakInstance = new Break(breakElement);
                 Breaks.Add(breakInstance);
-                foreach (XmlNode insertionElement in breakElement.ChildNodes)
+                if (condition == true)
                 {
-                    Insertion insertionInstance = new Insertion(insertionElement);
-                    Insercoes.Add(insertionInstance);
-                    //Console.WriteLine(insertionInstance);
+                    Console.WriteLine(breakInstance);
                 }
-                //breakInstance.PrintBreak(breakInstance);
-                //breakInstance.ListInsertions(breakElement);
             }
 
         }
@@ -74,19 +98,23 @@ namespace DesafioXml.util
 
         void SearchListElement(List<Break> breaks, string inputTime)
         {
-            int j = 0;
-            for (int i = 0; i < breaks.Count; i++)
-            {
-                var actualBreak = breaks[i];
 
-                if (actualBreak.Orig.Trim() == inputTime)
-                {
-                    foreach (var item in actualBreak.Insercoes)
-                    {
-                        Console.WriteLine("teste: " + item.Title);
-                    }
-                }
-            }
+            //for (int i = 0; i < breaks.Count; i++)
+            //{
+            //    var actualBreak = breaks[i];
+
+            //    if (actualBreak.Orig.Trim() == inputTime)
+            //    {
+            //        foreach (var item in actualBreak.Insercoes)
+            //        {
+            //            Console.WriteLine("teste: " + item);
+            //        }
+            //        break;
+            //    }
+            //}
+            
+            Break _break = breaks.FirstOrDefault(x=> x.Teste[0].Contains(inputTime));
+            Console.WriteLine(_break);
         }
     }
 }
