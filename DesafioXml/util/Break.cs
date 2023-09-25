@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 using System.Xml;
 using DesafioXml.util;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DesafioXml.util
 {
     public class Break
     {
-        public string Name { get; set; }    
+        public string Name { get; set; }
         public string Ins { get; set; }
         public string Locked { get; set; }
         public string Changed { get; set; }
@@ -28,6 +32,7 @@ namespace DesafioXml.util
         public string Dur { get; set; }
         public string Slots { get; set; }
         public string Orig { get; set; }
+        public string[] Teste;
         public List<Insertion> Insercoes { get; set; }
 
         public Break(XmlNode breakElement)
@@ -49,7 +54,10 @@ namespace DesafioXml.util
             Dur = breakElement.Attributes["Dur"]?.Value;
             Slots = breakElement.Attributes["Slots"]?.Value;
             Orig = breakElement.Attributes["Orig"]?.Value;
-
+            Teste = Orig.Split(' ');
+        ListInsertions(breakElement);
+            //using FileStream createStream = File.Create(@"C:\Playlist\pgm\Montagem\teste.jso");
+            //JsonSerializer.SerializeAsync(createStream, breakElement);
         }
         public void ListInsertions(XmlNode breakNode)
         {
@@ -57,12 +65,17 @@ namespace DesafioXml.util
             {
                 Insertion insertionInstance = new Insertion(insertionElement);
                 Insercoes.Add(insertionInstance);
-                Console.WriteLine(insertionInstance);
+
             }
         }
 
         public override string ToString()
         {
+            string ins = "";
+            foreach (var item in Insercoes)
+            {
+                ins += item.ToString() + "\n\n";
+            }
             return $": {Name}, " +
             $"Ins: {Ins}, " +
             $"Locked: {Locked}, " +
@@ -78,9 +91,10 @@ namespace DesafioXml.util
             $"Net: {Net}, " +
             $"Dur: {Dur}, " +
             $"Slots: {Slots}, " +
-            $"Orig: {Orig}\n\n";
+            $"Orig: {Orig}\n\n"
+            + $"{ins}";
 
         }
-        
+
     }
 }
