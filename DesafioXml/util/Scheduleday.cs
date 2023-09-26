@@ -1,6 +1,7 @@
 ﻿using System.Xml;
 using System.IO.Compression;
 using System.Diagnostics;
+using System.Globalization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DesafioXml.util
@@ -12,22 +13,27 @@ namespace DesafioXml.util
         public List<Break> Breaks { get; set; }
         public XmlDocument document;
         public List<Insertion> Insercoes { get; set; } = new List<Insertion>();
-        public ScheduleDay(string path, string inputDate, string inputTime)
+
+        public ScheduleDay(string path, DateTime inputDate)
         {
+            string data = inputDate.ToString("dd-MM-yyyy");
+            string montagemFile = path + @"\" + data + ".zip";
             Breaks = new List<Break>();
             DeleteXMLFile(path);
-            UnzipFiles(path, inputDate, inputTime);
+            UnzipFiles(path, montagemFile );
             DeleteXMLFile(path);
         }
 
-        public ScheduleDay(string path, string inputDate)
+        public ScheduleDay(string path, DateTime inputDate, DateTime inputTime)
         {
+            string data = inputDate.ToString("dd-MM-yyyy");
+            string time = inputTime.ToString("HH:mm");
+            string montagemFile = path + @"\" + data + ".zip";
             Breaks = new List<Break>();
             DeleteXMLFile(path);
-            UnzipFiles(path, inputDate);
+            UnzipFiles(path, montagemFile, time);
             DeleteXMLFile(path);
         }
-
 
 
         void UnzipFiles(string path, string inputDate, string inputTime)

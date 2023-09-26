@@ -11,17 +11,16 @@ class Program
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         
         string path = Utils.PathVerification();
-        string inputDate = Utils.DataVerification();
+        DateTime inputDate = Utils.DataVerification();
         string inputOption = Utils.OptionVerification();
-        string montagemFile = path + @"\" + inputDate + ".zip";
         if (inputOption == "1")
         {
-            ScheduleDay readSchDay = new ScheduleDay(path, montagemFile);
+            ScheduleDay readSchDay = new ScheduleDay(path, inputDate);
         }
         else
         {
-            string inputTime = Utils.TimeVerification();
-            ScheduleDay readSchDay = new ScheduleDay(path, montagemFile, inputTime);
+            DateTime inputTime = Utils.TimeVerification();
+            ScheduleDay readSchDay = new ScheduleDay(path, inputDate, inputTime);
         }
     }
 
