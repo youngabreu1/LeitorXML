@@ -23,7 +23,7 @@ O programa exibirá as informações extraídas dos arquivos **XML** corresponde
 O projeto é dividido em várias classes, incluindo ScheduleDay, Break e Insertion, que ajudam a extrair e processar informações dos arquivos XML.
 
 > **ScheduleDay**: Classe principal para o processamento de arquivos XML. <br>
-> **Break**: Classe para representar as quebras de programação. <br>
+> **Break**: Classe para representar os blocos de programação. <br>
 > **Insertion**: Classe para representar as inserções de programação. <br>
 
 ### Contribuição
