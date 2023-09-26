@@ -39,7 +39,7 @@ Sinta-se à vontade para contribuir para este projeto abrindo issues e pull requ
     
 3.  Compile o projeto.
     
-4.  Execute o programa a partir do arquivo `DesafioXml.exe`.
+4.  Execute o programa a partir do arquivo `DesafioXml.sln`.
 
 #### Licença
 Este projeto é licenciado sob a Licença MIT. Consulte o arquivo LICENSE para obter detalhes.
