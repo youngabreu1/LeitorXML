@@ -38,14 +38,14 @@ namespace DesafioXml.util
                 inputDate = Console.ReadLine();
                 if (!DateTime.TryParseExact(inputDate, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.AssumeLocal, out DateTime data))
                 {
-                    
+
                     Console.Clear();
                     Console.WriteLine("Formato de data inválido.");
                     continue;
                 }
                 return data;
             }
-            
+
         }
 
         public static DateTime TimeVerification()
@@ -74,13 +74,13 @@ namespace DesafioXml.util
                 inputOption = Console.ReadLine();
                 if (inputOption != "1" & inputOption != "2" & inputOption != "3")
                 {
-                    Console.Clear();   
+                    Console.Clear();
                     Console.WriteLine("Insira uma opção válida");
                     continue;
                 }
                 else if (inputOption == "1" || inputOption == "2")
                 {
-                    Console.Clear();   
+                    Console.Clear();
                     return inputOption;
                 }
                 else

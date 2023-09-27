@@ -3,6 +3,7 @@ using System.IO.Compression;
 using System.Diagnostics;
 using System.Globalization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Newtonsoft.Json;
 
 namespace DesafioXml.util
 {
@@ -18,9 +19,15 @@ namespace DesafioXml.util
         {
             string data = inputDate.ToString("dd-MM-yyyy");
             string montagemFile = path + @"\" + data + ".zip";
+
             Breaks = new List<Break>();
             DeleteXMLFile(path);
-            UnzipFiles(path, montagemFile );
+            UnzipFiles(path, montagemFile);
+
+            string json = JsonConvert.SerializeObject(Breaks);
+            string jsonPath = path + @"\" + "Jsonfile.json";
+            File.WriteAllText(jsonPath, json);
+
             DeleteXMLFile(path);
         }
 
@@ -29,9 +36,15 @@ namespace DesafioXml.util
             string data = inputDate.ToString("dd-MM-yyyy");
             string time = inputTime.ToString("HH:mm");
             string montagemFile = path + @"\" + data + ".zip";
+
             Breaks = new List<Break>();
             DeleteXMLFile(path);
             UnzipFiles(path, montagemFile, time);
+
+            string json = JsonConvert.SerializeObject(Breaks);
+            string jsonPath = path + @"\" + "Jsonfile.json";
+            File.WriteAllText(jsonPath, json);
+
             DeleteXMLFile(path);
         }
 
@@ -104,22 +117,7 @@ namespace DesafioXml.util
 
         void SearchListElement(List<Break> breaks, string inputTime)
         {
-
-            //for (int i = 0; i < breaks.Count; i++)
-            //{
-            //    var actualBreak = breaks[i];
-
-            //    if (actualBreak.Orig.Trim() == inputTime)
-            //    {
-            //        foreach (var item in actualBreak.Insercoes)
-            //        {
-            //            Console.WriteLine("teste: " + item);
-            //        }
-            //        break;
-            //    }
-            //}
-            
-            Break _break = breaks.FirstOrDefault(x=> x.Teste[0].Contains(inputTime));
+            Break _break = breaks.FirstOrDefault(x => x.Hora[0].Contains(inputTime));
             Console.WriteLine(_break);
         }
     }

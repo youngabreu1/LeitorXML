@@ -9,7 +9,7 @@ class Program
     static void Main(string[] args)
     {
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        
+
         string path = Utils.PathVerification();
         DateTime inputDate = Utils.DataVerification();
         string inputOption = Utils.OptionVerification();

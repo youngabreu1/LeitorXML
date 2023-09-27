@@ -1,16 +1,12 @@
 ﻿
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using DesafioXml.util;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Security.Cryptography.X509Certificates;
+using System.Net.Http.Json;
+//using Newtonsoft.Json;
 
 namespace DesafioXml.util
 {
@@ -32,7 +28,7 @@ namespace DesafioXml.util
         public string Dur { get; set; }
         public string Slots { get; set; }
         public string Orig { get; set; }
-        public string[] Teste;
+        public string[] Hora;
         public List<Insertion> Insercoes { get; set; }
 
         public Break(XmlNode breakElement)
@@ -54,10 +50,9 @@ namespace DesafioXml.util
             Dur = breakElement.Attributes["Dur"]?.Value;
             Slots = breakElement.Attributes["Slots"]?.Value;
             Orig = breakElement.Attributes["Orig"]?.Value;
-            Teste = Orig.Split(' ');
-        ListInsertions(breakElement);
-            //using FileStream createStream = File.Create(@"C:\Playlist\pgm\Montagem\teste.jso");
-            //JsonSerializer.SerializeAsync(createStream, breakElement);
+            Hora = Orig.Split(' ');
+            ListInsertions(breakElement);
+           
         }
         public void ListInsertions(XmlNode breakNode)
         {
@@ -65,7 +60,6 @@ namespace DesafioXml.util
             {
                 Insertion insertionInstance = new Insertion(insertionElement);
                 Insercoes.Add(insertionInstance);
-
             }
         }
 
