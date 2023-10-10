@@ -12,7 +12,11 @@ Insira o caminho da pasta **pgm** do Playlist quando solicitado.
 
 Escolha a data da montagem que você deseja visualizar no formato  **"dd-mm-yyyy"**.
 
-O programa exibirá as informações extraídas dos arquivos **XML** correspondentes.
+Escolha se você deseja imprimir a programação completa, um bloco específico, ou sair.
+
+O programa irá apagar os arquivos XML já presentes na pasta montagem e, em seguida extrair a pasta com a data escolhida, para obter um arquivo XML, e em seguida, ler este arquivo e alimentar as classes do programa.
+
+Ao imprimir a programação no formato desejado, será gerado um arquivo .json na pasta Montagem do Playlist, contendo toda a programação no formato de Json.
 
 ### Requisitos de Sistema
 
@@ -22,9 +26,10 @@ O programa exibirá as informações extraídas dos arquivos **XML** corresponde
 ### Estrutura do Projeto
 O projeto é dividido em várias classes, incluindo ScheduleDay, Break e Insertion, que ajudam a extrair e processar informações dos arquivos XML.
 
-> **ScheduleDay**: Classe principal para o processamento de arquivos XML. <br>
+> **ScheduleDay**: Classe principal para o processamento do arquivo XML e gerenciar as demais classes. <br>
 > **Break**: Classe para representar os blocos de programação. <br>
 > **Insertion**: Classe para representar as inserções de programação. <br>
+> **Utils**: Classe com funcionalidades uteis para verificação dos inputs do usuário. <br>
 
 ### Contribuição
 
@@ -41,12 +46,9 @@ Sinta-se à vontade para contribuir para este projeto abrindo issues e pull requ
     
 4.  Execute o programa a partir do arquivo `DesafioXml.sln`.
 
-#### Licença
-Este projeto é licenciado sob a Licença MIT. Consulte o arquivo LICENSE para obter detalhes.
-
 
 ### Autores
-- Gabriel
+- Gabriel Carlos
 
 
 
